@@ -39,3 +39,18 @@ def get_connected_components(bin_image, connectivity = 4):
             counter += 1
     
     return connected_array, counter-1
+
+    
+    
+    
+def test():
+    test_arr = np.zeros((8,8))
+    test_arr[1:3,1:3] = 1
+    test_arr[3:5,3:5] = 1
+    test_arr[6,1] = 1
+    test_arr[6,5:7] = 1
+    print test_arr
+    connected_arr, count = get_connected_components(test_arr)
+    print connected_arr
+if __name__ == "__main__":
+    test()
