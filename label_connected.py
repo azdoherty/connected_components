@@ -30,7 +30,15 @@ def get_connected_components(bin_image, connectivity = 4):
                 # work through queue
                 current = queue.pop(0)
                 i,j = current
-                if i == 0:
+                if i == 0 and j == 0:
+                    coords = np.array([[i, i+1], [j+1, j]])
+                elif i == h - 1 and j == w - 1:
+                    coords = np.array([[i, i-1], [j-1, j]])
+                elif i == 0 and j == w - 1:
+                    coords = np.array([[i, i+1], [j-1, j]])
+                elif i == h - 1 and j == 0:
+                    coords = np.array([[i, i-1], [j+1, j]])
+                elif i == 0:
                     coords = np.array([[i, i, i+1],[j-1, j+1, j]])
                 elif i == h - 1:
                     coords = np.array([[i, i, i-1],[j-1, j+1, j]])
@@ -40,6 +48,7 @@ def get_connected_components(bin_image, connectivity = 4):
                     coords = np.array([[i, i+1, i-1],[j-1, j, j]])
                 else:
                     coords = np.array([[i, i, i+1, i-1],[j-1, j+1, j, j]])
+                    
                 for k in range(len(coords[0])):
                     # iterate over neighbor pixels, if  not labeled and not zero then assign current label 
                     if connected_array[coords[0,k], coords[1,k]] == 0 and bin_image[coords[0,k], coords[1,k]] != 0:
@@ -59,6 +68,9 @@ def test():
     test_arr[6,1] = 1
     test_arr[6,5:7] = 1
     test_arr[7,3:5] = 1
+    
+    test_arr[-1,0] = 1
+    
     print test_arr
     connected_arr, count = get_connected_components(test_arr)
     print connected_arr
